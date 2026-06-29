@@ -1,0 +1,37 @@
+{
+  "test_size": 15,
+  "neural_accuracy": 0.9333333333333333,
+  "heuristic_accuracy": 0.7333333333333333,
+  "improvement_percent": 20.000000000000007,
+  "neural_errors_count": 1,
+  "heuristic_errors_count": 4,
+  "neural_errors": [
+    {
+      "text": "доска пришла кривая, но обменяли",
+      "true_label": 0,
+      "predicted": 1
+    }
+  ],
+  "heuristic_errors": [
+    {
+      "text": "восхитительно! прислали брак",
+      "true_label": 1,
+      "predicted": 0
+    },
+    {
+      "text": "ну вы даёте, уважаемые!",
+      "true_label": 1,
+      "predicted": 0
+    },
+    {
+      "text": "менеджеры хамят и грубят",
+      "true_label": 1,
+      "predicted": 0
+    },
+    {
+      "text": "уникальные люди: потеряли заявку",
+      "true_label": 1,
+      "predicted": 0
+    }
+  ]
+}

@@ -1,0 +1,381 @@
+[
+  {
+    "text": "Долго не могла дозвониться, чтобы сделать заказ! Не рекомендую данную организацию.\n",
+    "sentiment": "NEGATIVE",
+    "toxic": false,
+    "hidden": true,
+    "moderation": "rejected",
+    "reason": "hidden_abuse",
+    "timestamp": "2026-06-11T15:41:46.193471",
+    "ip_hash": "f528764d624db129b32c21fbca0cb8d6",
+    "manually_updated": true
+  },
+  {
+    "text": "привет",
+    "sentiment": "NEUTRAL",
+    "toxic": false,
+    "hidden": false,
+    "moderation": "approved",
+    "reason": "ok",
+    "timestamp": "2026-06-11T15:41:11.517227",
+    "ip_hash": "f528764d624db129b32c21fbca0cb8d6"
+  },
+  {
+    "text": "привет",
+    "sentiment": "NEUTRAL",
+    "toxic": false,
+    "hidden": true,
+    "moderation": "reject",
+    "reason": "hidden_abuse",
+    "timestamp": "2026-06-11T15:39:02.014125",
+    "ip_hash": "f528764d624db129b32c21fbca0cb8d6"
+  },
+  {
+    "text": "Заказал доски, привезли хорошего качества. Доставили быстро, к товару претензий не имею, буду покупать еще.\n",
+    "sentiment": "POSITIVE",
+    "toxic": false,
+    "hidden": false,
+    "moderation": "approved",
+    "reason": "ok",
+    "timestamp": "2026-06-11T15:37:32.607100",
+    "ip_hash": "f528764d624db129b32c21fbca0cb8d6"
+  },
+  {
+    "text": "все круто",
+    "sentiment": "POSITIVE",
+    "toxic": false,
+    "hidden": true,
+    "moderation": "approved",
+    "reason": "hidden_abuse",
+    "timestamp": "2026-06-11T15:35:53.937101",
+    "ip_hash": "f528764d624db129b32c21fbca0cb8d6",
+    "manually_updated": true
+  },
+  {
+    "text": "все классно\n",
+    "sentiment": "POSITIVE",
+    "toxic": false,
+    "hidden": false,
+    "moderation": "approved",
+    "reason": "ok",
+    "timestamp": "2026-06-11T15:35:13.741874",
+    "ip_hash": "f528764d624db129b32c21fbca0cb8d6",
+    "manually_updated": true
+  },
+  {
+    "text": "все супер",
+    "sentiment": "POSITIVE",
+    "toxic": false,
+    "hidden": true,
+    "moderation": "approved",
+    "reason": "hidden_abuse",
+    "timestamp": "2026-06-11T15:33:32.697310",
+    "ip_hash": "f528764d624db129b32c21fbca0cb8d6",
+    "manually_updated": true
+  },
+  {
+    "text": "доски отстой",
+    "sentiment": "NEGATIVE",
+    "toxic": false,
+    "hidden": true,
+    "moderation": "approved",
+    "reason": "hidden_abuse",
+    "timestamp": "2026-06-11T15:33:18.211039",
+    "ip_hash": "f528764d624db129b32c21fbca0cb8d6",
+    "manually_updated": true
+  },
+  {
+    "text": "Заказал доски, привезли хорошего качества. Доставили быстро, к товару претензий не имею, буду покупать еще.\n",
+    "sentiment": "POSITIVE",
+    "toxic": false,
+    "hidden": false,
+    "moderation": "approved",
+    "reason": "ok",
+    "timestamp": "2026-06-08T19:23:15.436464",
+    "ip_hash": "f528764d624db129b32c21fbca0cb8d6"
+  },
+  {
+    "text": "Хорошая компания, на сайте можно ознакомиться с ассортиментом и выбрать, что тебе нужно. Сделал заказ, оформил доставку.",
+    "sentiment": "POSITIVE",
+    "toxic": false,
+    "hidden": false,
+    "moderation": "approved",
+    "reason": "ok",
+    "timestamp": "2026-06-08T19:12:10.998398",
+    "ip_hash": "f528764d624db129b32c21fbca0cb8d6"
+  },
+  {
+    "text": "Долго не могла дозвониться, чтобы сделать заказ! Не рекомендую данную организацию.",
+    "sentiment": "NEGATIVE",
+    "toxic": false,
+    "hidden": true,
+    "moderation": "reject",
+    "reason": "hidden_abuse",
+    "timestamp": "2026-06-08T19:11:38.599345",
+    "ip_hash": "f528764d624db129b32c21fbca0cb8d6"
+  },
+  {
+    "text": "Заказал доски, привезли хорошего качества. Доставили быстро, к товару претензий не имею, буду покупать еще.",
+    "sentiment": "POSITIVE",
+    "toxic": false,
+    "hidden": true,
+    "moderation": "reject",
+    "reason": "hidden_abuse",
+    "timestamp": "2026-06-08T19:11:08.502957",
+    "ip_hash": "f528764d624db129b32c21fbca0cb8d6"
+  },
+  {
+    "text": "Полное фуфло и хамство\n",
+    "sentiment": "NEGATIVE",
+    "toxic": true,
+    "hidden": false,
+    "moderation": "reject",
+    "reason": "toxic",
+    "timestamp": "2026-05-23T19:04:52.895668",
+    "ip_hash": "f528764d624db129b32c21fbca0cb8d6"
+  },
+  {
+    "text": "Ну вы даёте, уважаемые!\n",
+    "sentiment": "NEUTRAL",
+    "toxic": false,
+    "hidden": true,
+    "moderation": "reject",
+    "reason": "hidden_abuse",
+    "timestamp": "2026-05-23T19:04:16.206211",
+    "ip_hash": "f528764d624db129b32c21fbca0cb8d6"
+  },
+  {
+    "text": "Доска кривая, но обменяли\n",
+    "sentiment": "POSITIVE",
+    "toxic": false,
+    "hidden": false,
+    "moderation": "approved",
+    "reason": "ok",
+    "timestamp": "2026-05-23T19:03:44.933203",
+    "ip_hash": "f528764d624db129b32c21fbca0cb8d6"
+  },
+  {
+    "text": "спасибо за сервис, всё отлично\n",
+    "sentiment": "POSITIVE",
+    "toxic": false,
+    "hidden": false,
+    "moderation": "approved",
+    "reason": "ok",
+    "timestamp": "2026-05-23T19:03:13.322658",
+    "ip_hash": "f528764d624db129b32c21fbca0cb8d6"
+  },
+  {
+    "text": "Доставили хорошие доски все понравилось",
+    "sentiment": "POSITIVE",
+    "toxic": false,
+    "hidden": false,
+    "moderation": "approved",
+    "reason": "ok",
+    "timestamp": "2026-05-18T11:30:59.324389",
+    "ip_hash": "f528764d624db129b32c21fbca0cb8d6"
+  },
+  {
+    "text": "топ",
+    "sentiment": "POSITIVE",
+    "toxic": false,
+    "hidden": false,
+    "moderation": "approved",
+    "reason": "ok",
+    "timestamp": "2026-05-10T19:03:20.803591",
+    "ip_hash": "f528764d624db129b32c21fbca0cb8d6"
+  },
+  {
+    "text": "да",
+    "sentiment": "POSITIVE",
+    "toxic": false,
+    "hidden": false,
+    "moderation": "approved",
+    "reason": "ok",
+    "timestamp": "2026-05-10T18:57:26.506797",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "text": "нет",
+    "sentiment": "NEUTRAL",
+    "toxic": false,
+    "hidden": false,
+    "moderation": "approved",
+    "reason": "ok",
+    "timestamp": "2026-05-10T18:49:05.540706",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "text": "да",
+    "sentiment": "POSITIVE",
+    "toxic": false,
+    "hidden": false,
+    "moderation": "approved",
+    "reason": "ok",
+    "timestamp": "2026-05-10T18:47:49.575160",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "text": "не",
+    "sentiment": "NEUTRAL",
+    "toxic": false,
+    "hidden": false,
+    "moderation": "approved",
+    "manually_updated": true
+  },
+  {
+    "text": "нет",
+    "sentiment": "NEUTRAL",
+    "toxic": false,
+    "hidden": false,
+    "moderation": "approved"
+  },
+  {
+    "text": "нет",
+    "sentiment": "neutral",
+    "toxic": false,
+    "hidden": true,
+    "moderation": "rejected",
+    "manually_updated": true
+  },
+  {
+    "text": "да",
+    "sentiment": "POSITIVE",
+    "toxic": false,
+    "hidden": false,
+    "moderation": "approved"
+  },
+  {
+    "text": "нет",
+    "sentiment": "neutral",
+    "toxic": false,
+    "hidden": true,
+    "moderation": "reject"
+  },
+  {
+    "text": "да",
+    "sentiment": "neutral",
+    "toxic": false,
+    "hidden": true,
+    "moderation": "reject"
+  },
+  {
+    "text": "спасибо за сервис, всё отлично",
+    "sentiment": "positive",
+    "toxic": false,
+    "hidden": false,
+    "moderation": "approved"
+  },
+  {
+    "text": "Доска кривая, но обменяли",
+    "sentiment": "POSITIVE",
+    "toxic": false,
+    "hidden": false,
+    "moderation": "approved"
+  },
+  {
+    "text": "Доска кривая, но обменяли",
+    "sentiment": "neutral",
+    "toxic": false,
+    "hidden": true,
+    "moderation": "reject"
+  },
+  {
+    "text": "Ну вы даёте, уважаемые!",
+    "sentiment": "neutral",
+    "toxic": false,
+    "hidden": true,
+    "moderation": "reject"
+  },
+  {
+    "text": "Полное фуфло и хамство",
+    "sentiment": "negative",
+    "toxic": true,
+    "hidden": false,
+    "moderation": "reject"
+  },
+  {
+    "text": "Отличные доски, спасибо",
+    "sentiment": "positive",
+    "toxic": false,
+    "hidden": false,
+    "moderation": "approved"
+  },
+  {
+    "text": "все круто",
+    "sentiment": "positive",
+    "toxic": false,
+    "hidden": false,
+    "moderation": "approved"
+  },
+  {
+    "text": "сервис отстой\n",
+    "sentiment": "negative",
+    "toxic": false,
+    "hidden": false,
+    "moderation": "approved",
+    "manually_updated": true
+  },
+  {
+    "text": "сервис отстой\n",
+    "sentiment": "negative",
+    "toxic": false,
+    "hidden": false,
+    "moderation": "approved"
+  },
+  {
+    "text": "спасибо за сервис",
+    "sentiment": "positive",
+    "toxic": false,
+    "hidden": false,
+    "moderation": "approved"
+  },
+  {
+    "text": "спасибо за сервис, всё отлично\n",
+    "sentiment": "positive",
+    "toxic": false,
+    "hidden": false,
+    "moderation": "approved"
+  },
+  {
+    "text": "спасибо за сервис потеряли заказ\n",
+    "sentiment": "positive",
+    "toxic": false,
+    "hidden": true,
+    "moderation": "reject"
+  },
+  {
+    "text": "спасибо за сервис потеряли заказ",
+    "sentiment": "positive",
+    "toxic": false,
+    "hidden": false,
+    "moderation": "approved"
+  },
+  {
+    "text": "все очень хорошо спасибо за сервис",
+    "sentiment": "positive",
+    "toxic": false,
+    "hidden": false,
+    "moderation": "approved"
+  },
+  {
+    "text": "все плохо",
+    "sentiment": "negative",
+    "toxic": false,
+    "hidden": false,
+    "moderation": "approved"
+  },
+  {
+    "text": "да",
+    "sentiment": "neutral",
+    "toxic": false,
+    "hidden": false,
+    "moderation": "approved"
+  },
+  {
+    "text": "привет",
+    "sentiment": "neutral",
+    "toxic": false,
+    "hidden": false,
+    "moderation": "approved"
+  }
+]

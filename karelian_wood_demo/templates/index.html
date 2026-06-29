@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Карелиан Вуд Кампани — анализ отзывов</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; margin: 0; padding: 20px; background: #eef2f3; }
+        .container { max-width: 1000px; margin: auto; background: white; padding: 25px; border-radius: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        h1 { color: #1e5631; margin-top: 0; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        h1 small { font-size: 14px; font-weight: normal; color: #5a6e5a; }
+        .product-info { background: #f0f7ea; padding: 15px; border-radius: 20px; margin: 20px 0; }
+        .review-form { background: #fafafc; border-radius: 20px; padding: 20px; margin: 20px 0; }
+        textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 16px; font-size: 14px; font-family: inherit; resize: vertical; margin: 10px 0; }
+        button { background: #1e5631; color: white; border: none; padding: 12px 24px; font-size: 16px; border-radius: 40px; cursor: pointer; font-weight: 600; transition: 0.2s; }
+        button:hover { background: #0f3b22; }
+        .result-card { background: #f8f9fa; border-radius: 20px; padding: 15px; margin-top: 15px; border-left: 6px solid #1e5631; }
+        .badge { display: inline-block; padding: 4px 12px; border-radius: 50px; font-size: 12px; font-weight: 600; margin-right: 8px; margin-bottom: 6px; }
+        .positive { background: #c8e6c9; color: #1e5631; }
+        .negative { background: #ffcdd2; color: #b71c1c; }
+        .neutral { background: #e0e0e0; color: #333; }
+        .toxic { background: #d32f2f; color: white; }
+        .hidden { background: #ff9800; color: white; }
+        .approved { background: #2e7d32; color: white; }
+        .rejected { background: #9e2a2a; color: white; }
+        .review-list { margin-top: 30px; }
+        .review-item { border-bottom: 1px solid #e0e0e0; padding: 20px 0; }
+        .review-text { font-size: 15px; margin-bottom: 8px; line-height: 1.4; }
+        .dashboard-link { background: #1e5631; color: white; padding: 8px 16px; border-radius: 20px; text-decoration: none; margin-left: 15px; font-size: 14px; }
+        .clear-btn { background: #9e2a2a; margin-left: 10px; font-size: 12px; padding: 6px 12px; }
+        
+        /* Стили для фильтров */
+        .filters { background: #f0f0f0; padding: 15px; border-radius: 16px; margin-bottom: 20px; display: flex; gap: 15px; flex-wrap: wrap; align-items: center; }
+        .filter-group { display: flex; align-items: center; gap: 8px; }
+        .filter-group label { font-weight: 600; color: #333; }
+        select { padding: 8px 12px; border-radius: 20px; border: 1px solid #ccc; background: white; cursor: pointer; }
+        .reset-filters { background: #6c757d; padding: 8px 16px; font-size: 12px; }
+        .filter-badge { background: #1e5631; color: white; padding: 4px 10px; border-radius: 20px; font-size: 12px; }
+        
+        /* Стиль для ошибки */
+        .error-card { background: #ffebee; border-left-color: #d32f2f; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Карелиан Вуд Кампани <small>деревообработка с душой</small>
+        <a href="/dashboard" class="dashboard-link">📊 Дашборд</a>
+    </h1>
+    <div class="product-info">
+        <strong>🌲 Пиломатериалы из карельской сосны и ели</strong> — экспортное качество, сорт A/B/C, доставка по России.
+    </div>
+
+    <div class="review-form">
+        <h3>✍️ Оставить отзыв</h3>
+        <textarea id="reviewInput" rows="3" placeholder="Напишите ваш отзыв..."></textarea>
+        <button id="submitBtn">🚀 Отправить и проанализировать</button>
+        <div id="analysisResult" style="display: none;" class="result-card"></div>
+    </div>
+
+    <!-- ФИЛЬТРЫ -->
+    <div class="filters">
+        <div class="filter-group">
+            <label>🎭 Тональность:</label>
+            <select id="filterSentiment">
+                <option value="all">Все</option>
+                <option value="POSITIVE">POSITIVE</option>
+                <option value="NEGATIVE">NEGATIVE</option>
+                <option value="NEUTRAL">NEUTRAL</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>🔒 Модерация:</label>
+            <select id="filterModeration">
+                <option value="all">Все</option>
+                <option value="approved">Одобрен</option>
+                <option value="rejected">Отклонён</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>⚠️ Тип:</label>
+            <select id="filterType">
+                <option value="all">Все</option>
+                <option value="toxic">Только с оскорблениями</option>
+                <option value="clean">Без оскорблений</option>
+            </select>
+        </div>
+        <button id="resetFiltersBtn" class="reset-filters">🔄 Сбросить</button>
+        <span class="filter-badge" id="filterCount">Показано: 0</span>
+    </div>
+
+    <div class="review-list">
+        <h3>📋 История отзывов <button id="clearHistoryBtn" class="clear-btn">Очистить историю</button></h3>
+        <div id="reviewsContainer"></div>
+    </div>
+</div>
+
+<script>
+    let allReviews = [];
+    let currentFilters = {
+        sentiment: 'all',
+        moderation: 'all',
+        type: 'all'
+    };
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    // Нормализация регистра для тональности
+    function normalizeSentiment(sentiment) {
+        if (!sentiment) return 'NEUTRAL';
+        return sentiment.toUpperCase();
+    }
+
+    // Получение текста причины отклонения
+    function getReasonText(reason) {
+        switch(reason) {
+            case 'duplicate': return ' 🔄 Дубликат';
+            case 'rate_limit': return ' ⏱️ Слишком часто';
+            case 'spam_pattern': return ' 🚫 Спам';
+            case 'low_quality': return ' 📝 Низкое качество';
+            case 'toxic': return ' 💢 Явное оскорбление';
+            case 'hidden_abuse': return ' 🎭 Скрытое оскорбление';
+            default: return '';
+        }
+    }
+
+    function filterReviews(reviews) {
+        return reviews.filter(rev => {
+            const sentimentNormalized = normalizeSentiment(rev.sentiment);
+            
+            if (currentFilters.sentiment !== 'all' && sentimentNormalized !== currentFilters.sentiment) return false;
+            if (currentFilters.moderation !== 'all' && rev.moderation !== currentFilters.moderation) return false;
+            if (currentFilters.type === 'toxic' && !rev.toxic && !rev.hidden) return false;
+            if (currentFilters.type === 'clean' && (rev.toxic || rev.hidden)) return false;
+            
+            return true;
+        });
+    }
+
+    function renderReviews() {
+        const filtered = filterReviews(allReviews);
+        const container = document.getElementById('reviewsContainer');
+        if (!container) return;
+        
+        document.getElementById('filterCount').innerText = `Показано: ${filtered.length} из ${allReviews.length}`;
+        
+        if (filtered.length === 0) {
+            container.innerHTML = '<div style="text-align:center; padding:40px; color:#666;">😕 Нет отзывов, соответствующих фильтрам</div>';
+            return;
+        }
+        
+        container.innerHTML = '';
+        filtered.forEach((rev, originalIndex) => {
+            const realIndex = allReviews.findIndex(r => r.text === rev.text && r.timestamp === rev.timestamp);
+            
+            const sentimentNormalized = normalizeSentiment(rev.sentiment);
+            const sentimentClass = sentimentNormalized === 'POSITIVE' ? 'positive' : (sentimentNormalized === 'NEGATIVE' ? 'negative' : 'neutral');
+            const modClass = rev.moderation === 'approved' ? 'approved' : 'rejected';
+            
+            const isManual = rev.manually_updated ? '⭐ Ручная модерация' : '🤖 Нейросеть';
+            const manualBadge = `<span class="badge" style="background:#6c757d; color:white;">${isManual}</span>`;
+            
+            let badges = `<span class="badge ${sentimentClass}">🎭 Тональность: ${sentimentNormalized}</span>`;
+            if (rev.toxic) badges += `<span class="badge toxic">⚠️ Явное оскорбление</span>`;
+            if (rev.hidden) badges += `<span class="badge hidden">🎭 Завуалированное оскорбление</span>`;
+            
+            const reasonText = getReasonText(rev.reason);
+            badges += `<span class="badge ${modClass}">🔒 Модерация: ${rev.moderation === 'approved' ? 'Одобрен' : 'Отклонён'}${reasonText}</span>`;
+            badges += manualBadge;
+
+            const adminButtons = `
+                <div style="margin-top: 10px;">
+                    <button onclick="updateReviewStatus(${realIndex}, 'approved')" style="background:#2e7d32; color:white; padding:4px 12px; margin-right:5px; border:none; border-radius:15px; cursor:pointer;">✅ Одобрить</button>
+                    <button onclick="updateReviewStatus(${realIndex}, 'rejected')" style="background:#9e2a2a; color:white; padding:4px 12px; border:none; border-radius:15px; cursor:pointer;">❌ Отклонить</button>
+                </div>
+            `;
+
+            const div = document.createElement('div');
+            div.className = 'review-item';
+            div.innerHTML = `
+                <div class="review-text">${escapeHtml(rev.text)}</div>
+                <div>${badges}</div>
+                ${adminButtons}
+                <div style="font-size: 10px; color: #999; margin-top: 5px;">🕒 ${rev.timestamp || 'недавно'}</div>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    async function updateReviewStatus(index, newStatus) {
+        const response = await fetch('/update_review_status', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ index: index, status: newStatus })
+        });
+        const result = await response.json();
+        if (result.status === 'ok') {
+            loadReviews();
+        } else {
+            alert('Ошибка при обновлении статуса');
+        }
+    }
+
+    async function loadReviews() {
+        const response = await fetch('/get_reviews');
+        allReviews = await response.json();
+        renderReviews();
+    }
+
+    async function analyzeAndAddReview(text) {
+        if (!text.trim()) {
+            alert('Введите текст отзыва');
+            return;
+        }
+        
+        const resultDiv = document.getElementById('analysisResult');
+        resultDiv.style.display = 'block';
+        resultDiv.innerHTML = '<div style="text-align:center;">⏳ Анализ отзыва нейросетью...</div>';
+        resultDiv.className = 'result-card';
+        
+        try {
+            const response = await fetch('/analyze', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ review: text })
+            });
+            
+            // Обработка ошибки 429 (слишком часто)
+            if (response.status === 429) {
+                const error = await response.json();
+                resultDiv.innerHTML = `
+                    <strong>⚠️ Ошибка:</strong><br>
+                    ${error.error || 'Слишком много отзывов. Попробуйте позже.'}
+                `;
+                resultDiv.classList.add('error-card');
+                setTimeout(() => {
+                    resultDiv.style.display = 'none';
+                    resultDiv.classList.remove('error-card');
+                }, 3000);
+                return;
+            }
+            
+            const result = await response.json();
+            
+            // Обработка ошибки
+            if (result.error) {
+                resultDiv.innerHTML = `
+                    <strong>⚠️ Ошибка:</strong><br>
+                    ${result.error}
+                `;
+                resultDiv.classList.add('error-card');
+                setTimeout(() => {
+                    resultDiv.style.display = 'none';
+                    resultDiv.classList.remove('error-card');
+                }, 3000);
+                return;
+            }
+            
+            const sentimentDisplay = normalizeSentiment(result.sentiment);
+            const sentimentClass = sentimentDisplay === 'POSITIVE' ? 'positive' : (sentimentDisplay === 'NEGATIVE' ? 'negative' : 'neutral');
+            
+            let reasonText = '';
+            if (result.reason === 'duplicate') reasonText = '🔄 Дубликат';
+            else if (result.reason === 'rate_limit') reasonText = '⏱️ Слишком часто';
+            else if (result.reason === 'toxic') reasonText = '💢 Явное оскорбление';
+            else if (result.reason === 'hidden_abuse') reasonText = '🎭 Скрытое оскорбление';
+            else reasonText = '✅ Одобрено';
+            
+            resultDiv.innerHTML = `
+                <strong>🔎 Результат анализа нейросети:</strong><br>
+                📊 Тональность: <b class="${sentimentClass}">${sentimentDisplay}</b> (${result.sentiment_confidence})<br>
+                ☠️ Явное оскорбление: ${result.toxic ? 'ДА' : 'НЕТ'} (${result.toxic_confidence})<br>
+                🎭 Завуалированное оскорбление: ${result.hidden_abuse ? 'ДА' : 'НЕТ'}<br>
+                ✅ Решение: <span class="badge ${result.moderation_status === 'approved' ? 'approved' : 'rejected'}">${reasonText}</span>
+                <hr>
+            `;
+            resultDiv.classList.remove('error-card');
+            
+            // Если отзыв одобрен или отклонён не из-за спама — сохраняем
+            if (result.moderation_status !== 'reject' || (result.reason !== 'duplicate' && result.reason !== 'rate_limit')) {
+                const reviewData = {
+                    text: text,
+                    sentiment: result.sentiment,
+                    toxic: result.toxic,
+                    hidden: result.hidden_abuse,
+                    moderation: result.moderation_status,
+                    reason: result.reason,
+                    timestamp: new Date().toISOString()
+                };
+                await fetch('/add_review', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(reviewData)
+                });
+                
+                loadReviews();
+                document.getElementById('reviewInput').value = '';
+            }
+            
+            // Скрываем результат через 5 секунд
+            setTimeout(() => {
+                if (resultDiv.style.display !== 'none') {
+                    resultDiv.style.display = 'none';
+                }
+            }, 5000);
+            
+        } catch (error) {
+            resultDiv.innerHTML = `
+                <strong>⚠️ Ошибка сервера:</strong><br>
+                Не удалось подключиться к серверу. Попробуйте позже.
+            `;
+            resultDiv.classList.add('error-card');
+            setTimeout(() => {
+                resultDiv.style.display = 'none';
+                resultDiv.classList.remove('error-card');
+            }, 3000);
+        }
+    }
+
+    async function clearHistory() {
+        if (confirm('Удалить всю историю отзывов?')) {
+            await fetch('/clear_reviews', { method: 'POST' });
+            loadReviews();
+        }
+    }
+
+    function applyFilters() {
+        currentFilters.sentiment = document.getElementById('filterSentiment').value;
+        currentFilters.moderation = document.getElementById('filterModeration').value;
+        currentFilters.type = document.getElementById('filterType').value;
+        renderReviews();
+    }
+    
+    function resetFilters() {
+        document.getElementById('filterSentiment').value = 'all';
+        document.getElementById('filterModeration').value = 'all';
+        document.getElementById('filterType').value = 'all';
+        applyFilters();
+    }
+
+    document.getElementById('submitBtn').addEventListener('click', () => {
+        const text = document.getElementById('reviewInput').value;
+        analyzeAndAddReview(text);
+    });
+    document.getElementById('clearHistoryBtn').addEventListener('click', clearHistory);
+    document.getElementById('resetFiltersBtn').addEventListener('click', resetFilters);
+    
+    document.getElementById('filterSentiment').addEventListener('change', applyFilters);
+    document.getElementById('filterModeration').addEventListener('change', applyFilters);
+    document.getElementById('filterType').addEventListener('change', applyFilters);
+    
+    loadReviews();
+</script>
+</body>
+</html>
